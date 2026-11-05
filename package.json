@@ -1,0 +1,12 @@
+{
+  "name": "guia-senior-dotnet",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Guia Definitivo do Desenvolvedor Sênior .NET/C# — livro online interativo (HTML/CSS/JS puro, sem build).",
+  "scripts": {
+    "test": "node --test",
+    "verificar:programas": "node tools/verificar-programas.mjs",
+    "serve": "python -m http.server 8000"
+  },
+  "engines": { "node": ">=20" }
+}

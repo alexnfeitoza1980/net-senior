@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Guia Definitivo do Desenvolvedor Sênior .NET/C# — livro online interativo: C#, ASP.NET Core, dados, arquitetura, mensageria, performance, segurança, cloud e observabilidade, com programas executáveis." />
+  <meta name="keywords" content=".NET, C#, ASP.NET Core, Entity Framework, Microservices, SOLID, DDD, senior developer" />
+  <meta name="theme-color" content="#f4f7fe" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Guia Sênior .NET/C# — Livro Online</title>
+
+  <!-- Tema aplicado antes da primeira pintura (sem "flash" de tema errado) -->
+  <script>
+    (function () {
+      var t = null;
+      try { t = JSON.parse(localStorage.getItem('sn.theme')) || localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') {
+        t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Guia Definitivo do Desenvolvedor Sênior .NET/C#" />
+  <meta property="og:description" content="Livro técnico interativo: C#, ASP.NET Core, DDD, Mensageria, Cloud e muito mais." />
+  <meta property="og:type" content="book" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+
+  <!-- Prism.js — versão fixa + SRI (integridade verificada pelo navegador) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    integrity="sha384-wFjoQjtV1y5jVHbt0p35Ui8aV8GVpEZkyF99OXWqP/eNJDU93D3Ugxkoyh6Y2I4A" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>" />
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+
+<!-- Barra de progresso de leitura (decorativa: o progresso real está na barra lateral) -->
+<div id="reading-progress" aria-hidden="true"></div>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header id="app-header">
+  <a class="header-brand" href="#/" id="home-link" title="Voltar ao início">
+    <div class="logo" aria-hidden="true">.N</div>
+    <div>
+      <div class="brand-text">Guia Sênior .NET/C#</div>
+      <div class="brand-sub">Livro Técnico Online</div>
+    </div>
+  </a>
+
+  <div class="header-center" role="search">
+    <span class="search-icon" aria-hidden="true">🔍</span>
+    <input
+      type="search"
+      id="search-input"
+      class="search-box"
+      placeholder="Buscar no livro…  ( / ou Ctrl+K )"
+      aria-label="Buscar no livro"
+      role="combobox"
+      aria-autocomplete="list"
+      aria-expanded="false"
+      aria-controls="search-results"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div id="search-results" role="listbox" aria-label="Resultados da busca"></div>
+  </div>
+
+  <div class="header-actions">
+    <button id="search-toggle" class="btn-icon" type="button" aria-label="Buscar no livro">🔍</button>
+    <button id="theme-toggle" class="btn-icon" type="button" aria-label="Alternar tema">🌙</button>
+    <button id="menu-toggle" class="btn-icon" type="button" aria-label="Abrir sumário" aria-controls="sidebar" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div id="sidebar-overlay" aria-hidden="true"></div>
+
+<!-- ============================================================
+     SUMÁRIO
+============================================================ -->
+<nav id="sidebar" aria-label="Sumário do livro">
+  <div class="sidebar-inner">
+    <div class="sidebar-section-title">📚 Capítulos</div>
+    <ul id="toc-list" class="toc-list"></ul>
+  </div>
+
+  <div class="sidebar-progress-wrap">
+    <div class="sidebar-progress-label">
+      <span>Progresso</span>
+      <span id="progress-label">0 concluídos</span>
+    </div>
+    <div class="sidebar-progress-bar" id="sidebar-progress" role="progressbar" aria-label="Capítulos concluídos"
+      aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="progress-fill" class="sidebar-progress-fill"></div>
+    </div>
+    <p class="sidebar-hint">Um capítulo conta como concluído quando você chega ao fim dele.</p>
+  </div>
+</nav>
+
+<!-- ============================================================
+     CONTEÚDO
+============================================================ -->
+<main id="main-content" tabindex="-1">
+
+  <!-- HOME -->
+  <section id="home-view" aria-labelledby="hero-title">
+    <div class="hero">
+      <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+
+      <div class="hero-badge">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        Guia Técnico Definitivo · Edição 2026
+      </div>
+
+      <h1 class="hero-title" id="hero-title">
+        Guia Definitivo do<br />
+        <span class="gradient-text">Desenvolvedor Sênior</span><br />
+        .NET / C#
+      </h1>
+
+      <p class="hero-subtitle">
+        <span data-stat="chapters">9</span> capítulos técnicos aprofundados, do sistema de tipos do C# até
+        Cloud, DevOps e Observabilidade. O roadmap completo para a senioridade.
+      </p>
+
+      <div class="hero-cta-group">
+        <a class="btn-primary" id="continue-reading" href="#/" hidden>
+          ▶ <span class="continue-label">Continuar leitura</span>
+        </a>
+        <a class="btn-primary" id="start-reading" href="#/fundamentos-csharp">📖 Começar a Leitura</a>
+        <a class="btn-secondary" id="see-chapters" href="#chapters-section">📋 Ver Capítulos</a>
+      </div>
+
+      <ul class="hero-stats">
+        <li class="stat-item"><span class="stat-value" data-stat="chapters">9</span><span class="stat-label">Capítulos</span></li>
+        <li class="stat-item"><span class="stat-value" data-stat="minutes">395</span><span class="stat-label">Min de leitura</span></li>
+        <li class="stat-item"><span class="stat-value" data-stat="programs">77</span><span class="stat-label">Programas executáveis</span></li>
+        <li class="stat-item"><span class="stat-value" data-stat="diagrams">59</span><span class="stat-label">Diagramas</span></li>
+        <li class="stat-item"><span class="stat-value" data-stat="challenges">9</span><span class="stat-label">Desafios práticos</span></li>
+      </ul>
+    </div>
+
+    <section class="chapters-section" id="chapters-section" aria-labelledby="chapters-title">
+      <div class="section-header">
+        <div class="section-tag">📚 Conteúdo</div>
+        <h2 class="section-title" id="chapters-title">Todos os Capítulos</h2>
+        <p class="section-desc">
+          Cada capítulo cobre conceitos, exemplos do dia a dia, diagramas, programas
+          completos com a saída real e um desafio para consolidar o conhecimento.
+        </p>
+      </div>
+      <div class="chapters-grid" id="chapters-grid"></div>
+    </section>
+  </section>
+
+  <!-- CAPÍTULO -->
+  <div id="chapter-view" hidden>
+    <div class="chapter-header-bar">
+      <nav class="chapter-breadcrumb" aria-label="Você está em">
+        <a href="#/" id="breadcrumb-home">Início</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span class="breadcrumb-current" id="breadcrumb-chapter" aria-current="page">Capítulo</span>
+      </nav>
+
+      <div class="chapter-nav-btns">
+        <button class="nav-btn" id="btn-prev" type="button" aria-label="Capítulo anterior">← <span class="nav-btn-text">Anterior</span></button>
+        <button class="nav-btn" id="btn-next" type="button" aria-label="Próximo capítulo"><span class="nav-btn-text">Próximo</span> →</button>
+      </div>
+    </div>
+
+    <div class="chapter-layout">
+      <article class="chapter-content" id="chapter-content"></article>
+      <aside class="page-toc-wrap" aria-label="Sumário do capítulo">
+        <nav id="page-toc" class="page-toc"></nav>
+      </aside>
+    </div>
+  </div>
+
+</main>
+
+<button id="back-to-top" type="button" aria-label="Voltar ao topo da página" title="Topo">↑</button>
+
+<noscript>
+  <p class="noscript">Este livro precisa de JavaScript habilitado para exibir os capítulos.</p>
+</noscript>
+
+<!-- ============================================================
+     SCRIPTS — Prism (versão fixa + SRI). O Mermaid é carregado
+     sob demanda pelo app, só em capítulos que têm diagramas.
+============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual
+  integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"
+  integrity="sha384-nMKYzg6yfy0qgpaRpVhHvZp0gT5sgvmZYlFC0XAKZSp+zFUB9rE6zsdmIEiou4bV" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"
+  integrity="sha384-9WmlN8ABpoFSSHvBGGjhvB3E/D8UkNB9HpLJjBQFC2VSQsM1odiQDv4NbEo+7l15" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"
+  integrity="sha384-RhrmFFMb0ZCHImjFMpR/UE3VEtIVTCtNrtKQqXCzqXZNJala02N3UbVhi+qzw3CY" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"
+  integrity="sha384-/MKWdycCDliku23mP5sYXbZNuXrzgmQO/jsVxwPFn99dVOaXRyKsqDjarqpueGAp" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"
+  integrity="sha384-AKAiycghK0jDCjD+aavMHzDkLzRR7Yzcwh3+xL/295cvyVMe+cxQfyQC8xxGGcI8" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-docker.min.js"
+  integrity="sha384-44ggPevoK6FC5kDMdbbWoMCAFkSCwaRoXXtKMkslR2lf8Ra3OSzCRrFIyeK+TQBi" crossorigin="anonymous"></script>
+
+<!-- App (funciona offline: sem CDN o texto continua legível, só sem cores no código) -->
+<script src="js/core.js"></script>
+<script src="js/chapters-data.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

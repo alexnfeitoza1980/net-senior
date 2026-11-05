@@ -1,0 +1,17 @@
+# Verificação dos programas (tools/verificar-programas.mjs)
+.work/
+bin/
+obj/
+
+# Ferramentas de agentes/IDEs e rascunhos locais
+.claude/
+.kilo/
+scratch/
+.vs/
+.vscode/
+.idea/
+node_modules/
+
+# Sistema
+.DS_Store
+Thumbs.db
